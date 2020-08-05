@@ -19,10 +19,18 @@
 
 import { createNamespacedHelpers } from 'vuex'
 
+// Vuex mappers
+// maps module
 const {
-    mapGetters,
-    mapActions,
+    mapGetters: mapsGetters,
+    mapActions: mapsActions,
 } = createNamespacedHelpers('maps')
+
+// posts module
+const {
+    mapGetters: postsGetters,
+    mapActions: postsActions,
+} = createNamespacedHelpers('posts')
 
 function mapOptions() {
     return {
@@ -41,29 +49,35 @@ export default {
         }
     },
 
-    computed: mapGetters([
-        'center',
-        'zoom',
-    ]),
+    
+    computed: {
 
-    // computed: {
+        ...mapsGetters([
+            'center',
+            'zoom',
+        ]),
+        ...postsGetters([
+            'draft'
+        ]),
 
-    //     ...mapGetters([
-    //         'center',
-    //         'zoom',
-    //     ]),
+        mapOptions () {
+            return {
+                fullscreenControl: false,
+            }
+        },
+    },
 
-    //     mapOptions () {
-    //         return {
-    //             fullscreenControl: false,
-    //         }
-    //     },
-    // },
+    methods: {
+        ...mapsActions([
+            'setCenter',
+            'setUserPosition',
+            'setZoom',
+        ]),
 
-    methods: mapActions([
-        'setCenter',
-        'setZoom'
-    ]),
+        ...postsActions([
+            'setDraftLocation',
+        ]),
+    },
 
 }
 </script>
