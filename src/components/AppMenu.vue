@@ -24,18 +24,21 @@
 export default {
     computed: {
         user () {
-            return this.$store.state.user
+            return this.$store.getters.user
         },
         userPicture () {
-            return null // TODO
+            return this.$store.getters.userPicture
         }
     },
     methods: {
         centerOnUser () {
             // TODO
+            // Testing login action
+            this.$store.dispatch('login')
         },
         logout () {
             // TODO
+            this.$store.dispatch('logout')
         },
     },
 }
