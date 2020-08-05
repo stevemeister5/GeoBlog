@@ -4,6 +4,12 @@
     </div>
 </template>
 
-<style lang="stylus" scoped>
-@import '../styles/main'
+<style lang="stylus">
+@import '../styles/main';
 </style>
+
+<script>
+export default {
+    // TODO
+}
+</script>

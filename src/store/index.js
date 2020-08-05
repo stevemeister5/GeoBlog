@@ -8,7 +8,13 @@ const store = new Vuex.Store({
         return {
             user: null,
         }
-    }
+    },
+
+    mutations: {
+        user: (state, user) => {
+            state.user = user
+        },
+    },
 })
 
 export default store

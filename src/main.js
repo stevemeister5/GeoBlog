@@ -1,7 +1,7 @@
 import 'babel-polyfill'
 import Vue from 'vue'
 import VueFetch, { $fetch } from './plugins/fetch'
-import App from './components/App.cue'
+import App from './components/App.vue'
 import router from './router'
 import * as filters from './filters'
 import store from './store'
@@ -17,8 +17,10 @@ Vue.use(VueFetch, {
 
 function main () {
     new Vue({
-        ...App,
         el: '#app',
+        render: function (h) {
+            return h(App);
+        },
         router,
         // Injected store
         store,
