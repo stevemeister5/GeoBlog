@@ -1,5 +1,15 @@
 <template>
     <div class="geo-blog">
-        <!-- More to come -->
+        <AppMenu />
+        <!-- Map & content here -->
     </div>
 </template>
+
+<script>
+import AppMenu from './AppMenu'
+export default {
+    components: {
+        AppMenu,
+    },
+}
+</script>
