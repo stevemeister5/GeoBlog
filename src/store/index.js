@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+import maps from './maps'
+
 
 Vue.use(Vuex)
 
@@ -10,6 +12,10 @@ const store = new Vuex.Store({
         return {
             user: null,
         }
+    },
+
+    modules: {
+        maps,
     },
 
     mutations: {

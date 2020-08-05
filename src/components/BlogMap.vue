@@ -6,11 +6,30 @@
             :options="mapOptions"
             @update:center="setCenter"
             @update:zoom="setZoom"
-        />
+        >
+            <!-- User Position -->
+            <googlemaps-user-position
+                @update:position="setUserPosition"
+                />
+        </googlemaps-map>
     </div>
 </template>
 
 <script>
+
+import { createNamespacedHelpers } from 'vuex'
+
+const {
+    mapGetters,
+    mapActions,
+} = createNamespacedHelpers('maps')
+
+function mapOptions() {
+    return {
+        fullscreenControl: false,
+    }
+}
+
 export default {
     data () {
         return {
@@ -22,21 +41,29 @@ export default {
         }
     },
 
-    computed: {
-        mapOptions () {
-            return {
-                fullscreenControl: false,
-            }
-        },
-    },
+    computed: mapGetters([
+        'center',
+        'zoom',
+    ]),
 
-    methods: {
-        setCenter (value) {
-            this.center = value
-        },
-        setZoom (value) {
-            this.zoom = value
-        },
-    },
+    // computed: {
+
+    //     ...mapGetters([
+    //         'center',
+    //         'zoom',
+    //     ]),
+
+    //     mapOptions () {
+    //         return {
+    //             fullscreenControl: false,
+    //         }
+    //     },
+    // },
+
+    methods: mapActions([
+        'setCenter',
+        'setZoom'
+    ]),
+
 }
 </script>
