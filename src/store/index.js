@@ -20,7 +20,15 @@ const store = new Vuex.Store({
     getters: {
         user: state => state.user,
 
-        userPicture: () => null,
+        userPicture: (state, getters) => {
+            const user = getters.user
+            if (user) {
+                const photos = user.profile.photos
+                if (photos.length !== 0) {
+                    return photos[0].value
+                }
+            }
+        },
     },
     actions: {
         async login ({ commit }) {
@@ -36,6 +44,10 @@ const store = new Vuex.Store({
             } catch (e) {
                 console.warn(e)
             }
+        },
+
+        async init ({ dispatch }) {
+            await dispatch('login')
         },
 
         logout ({ commit }) {
