@@ -6,11 +6,25 @@
             :options="mapOptions"
             @update:center="setCenter"
             @update:zoom="setZoom"
+            @click="onMapClick"
         >
             <!-- User Position -->
             <googlemaps-user-position
                 @update:position="setUserPosition"
                 />
+            <!-- New post marker -->
+            <googlemaps-marker
+                v-if="draft"
+                :clickable="false"
+                :label="{
+                    color: 'white',
+                    fontFamilt: 'Material Icons',
+                    text: 'add_circle',
+                }"
+                :opacity=".75"
+                :position="draft.position"
+                :z-index="6"
+            />
         </googlemaps-map>
     </div>
 </template>
@@ -77,6 +91,13 @@ export default {
         ...postsActions([
             'setDraftLocation',
         ]),
+
+        onMapClick (event) {
+            this.setDraftLocation({
+                position: event.latLng,
+                placeId: event.placeId,
+            })
+        },
     },
 
 }
