@@ -21,25 +21,16 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
+
 export default {
-    computed: {
-        user () {
-            return this.$store.getters.user
-        },
-        userPicture () {
-            return this.$store.getters.userPicture
-        }
-    },
-    methods: {
-        centerOnUser () {
-            // TODO
-            // Testing login action
-            this.$store.dispatch('login')
-        },
-        logout () {
-            // TODO
-            this.$store.dispatch('logout')
-        },
-    },
+    computed: mapGetters([
+        'user',
+        'userPicture',
+    ]),
+    methods: mapActions({
+        centerOnUser: 'login',
+        logout: 'logout',
+    })
 }
 </script>
