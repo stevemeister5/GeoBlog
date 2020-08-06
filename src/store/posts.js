@@ -56,6 +56,9 @@ export default {
         selectedPostDetails (state, value) {
             state.selectedPostDetails = value
         },
+        addComment (state, { post, comment }) {
+            post.comments.push(comment)
+        },
     },
 
     actions: {
@@ -84,6 +87,7 @@ export default {
             },
             root: true,
         },
+
 
         clearDraft ({ commit }) {
             commit('draft', null)
@@ -165,6 +169,24 @@ export default {
                     })
                 }
             }
+        },
+
+        async sendComment({ commit, rootGetters }, { post, comment }) {
+            const user = rootGetters.user
+            commit('addComment', {
+                post,
+                comment: {
+                    ...comment,
+                    date: new Date(),
+                    user_id: user._id,
+                    author: user,
+                },
+            })
+
+            await $fetch(`posts/${pos._id}/comment`, {
+                method: 'POST',
+                body: JSON.stringify(comment),
+            })
         },
     },
 }
