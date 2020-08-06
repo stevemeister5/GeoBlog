@@ -16,17 +16,19 @@
                 />
             <!-- New post marker -->
             <googlemaps-marker
-                v-if="draft"
-                :clickable="false"
+                v-for="post of posts"
+                :key="post._id"
                 :label="{
-                    color: 'white',
-                    fontFamilt: 'Material Icons',
-                    text: 'add_circle',
+                    color: post === currentPost ? 'white' : 'black',
+                    fontFamily: 'Material Icons',
+                    fontSize: '20px',
+                    text: 'face',
                 }"
-                :opacity=".75"
-                :position="draft.position"
-                :z-index="6"
-            />
+                :position="post.position"
+                :z-index="5"
+                    @click="selectPost(post._id)"
+                >
+            </googlemaps-marker>
         </googlemaps-map>
     </div>
 </template>
