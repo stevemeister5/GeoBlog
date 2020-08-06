@@ -15,6 +15,8 @@ export default {
             posts: [],
             // ID of the selected post
             selectedPostId: null,
+            // Fetched details for the selected post
+            selectedPostDetails: null,
         }
     },
 
@@ -25,6 +27,8 @@ export default {
         selectedPost: state => state.posts.find(p => p._id === state.selectedPostId),
         // The draft has more priority than the selected postt
         currentPost: (state, getters) => state.draft || getters.selectedPost,
+
+        selectedPostDetails: state => state.selectedPostDetails,
     },
 
     mutations: {
@@ -47,6 +51,10 @@ export default {
 
         updateDraft (state, value) {
             Object.assign(state.draft.value)
+        },
+
+        selectedPostDetails (state, value) {
+            state.selectedPostDetails = value
         },
     },
 
@@ -104,6 +112,10 @@ export default {
             commit('updateDraft', draft)
         },
 
+        unselectPost ({ commit }) {
+            commit('selectedPostId', null)
+        },
+
         async createPost ({ commit, dispatch }, draft) {
             const data = {
                 ...draft,
@@ -124,8 +136,10 @@ export default {
         },
 
         async selectPost ({ commit }, id) {
+            commit('selectedPostDetails', null)
             commit('selectedPostId', id)
-            // TODO fetch the post details (comments, etc)
+            const details = await $fetch(`posts/${id}`)
+            commit('selectedPostDetails', details)
         },
 
         async fetchPosts ({ commit, state }, { mapBounds, force }) {
