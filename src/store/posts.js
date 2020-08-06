@@ -51,6 +51,17 @@ export default {
     },
 
     actions: {
+
+        logout: {
+            handler ({ commit }) {
+                commit('posts', {
+                    posts: [],
+                    mapBounds: null,
+                })
+            },
+            root: true,
+        },
+
         clearDraft ({ commit }) {
             commit('draft', null)
         },
