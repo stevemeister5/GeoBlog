@@ -62,6 +62,21 @@ export default {
             root: true,
         },
 
+        'logged-in': {
+            handler ({ dispatch, state }) {
+                if (state.mapBounds) {
+                    dispatch('fetchPosts', {
+                        mapBounds: state.mapBounds,
+                        force: true,
+                    })
+                }
+                if (state.selectedPostId) {
+                    dispatch('selectPost', state.selectedPostId)
+                }
+            },
+            root: true,
+        },
+
         clearDraft ({ commit }) {
             commit('draft', null)
         },

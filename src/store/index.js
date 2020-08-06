@@ -48,6 +48,7 @@ const store = new Vuex.Store({
                     // Redirect to the wanted route if any or else to home
                     router.replace(router.currentRoute.params.wantedRoute || 
                         { name: 'home' })
+                    this.dispatch('logged-in')
                 }
             } catch (e) {
                 console.warn(e)
